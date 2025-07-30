@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block title %}Home{% endblock %}
+
+{% block content %}
+<div class="option-cards">
+    <a href="/insights" class="card">
+        <i class="fa-solid fa-chart-simple fa-bounce"></i>
+        View Insights
+    </a>
+    <a href="/search" class="card">
+        <i class="fa-solid fa-pen-to-square fa-flip"></i>
+        Modify Data
+    </a>
+    <a href="/add_data" class="card">
+        <i class="fa-solid fa-cart-plus fa-beat"></i>
+        Add Inventory
+    </a>
+</div>
+{% endblock %}

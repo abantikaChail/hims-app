@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block title %}Insights{% endblock %}
+
+{% block content %}
+<h2 class="page-title">Inventory Insights</h2>
+
+<div class="charts-container">
+    <canvas id="pieChart"></canvas>
+    <canvas id="barChart"></canvas>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+  const chartLabels = JSON.parse('{{ labels | tojson | safe }}');
+  const chartValues = JSON.parse('{{ values | tojson | safe }}');
+</script>
+<script src="{{ url_for('static', path='js/insights.js') }}"></script>
+{% endblock %}

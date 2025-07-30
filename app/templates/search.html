@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+{% block title %}Inventory{% endblock %}
+
+{% block content %}
+<h2 style="text-align: center; margin-bottom: 20px;">
+  {% if query %}
+  Search Results for "{{ query }}"
+  {% else %}
+  Full Inventory List
+  {% endif %}
+</h2>
+
+{% if items %}
+<div class="table-wrapper">
+  <table class="inventory-table">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Quantity</th>
+        <th>Type</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for item in items %}
+      <tr>
+        <form method="post" action="/search/update/{{ item.id }}">
+          <td><input type="text" name="name" value="{{ item.name }}"></td>
+          <td><input type="number" name="quantity" value="{{ item.quantity }}"></td>
+          <td>
+            <select name="item_type" required>
+              <option value="Mobile" {{ 'selected' if item.item_type=='Mobile' else '' }}>Mobile</option>
+              <option value="Laptop" {{ 'selected' if item.item_type=='Laptop' else '' }}>Laptop</option>
+              <option value="Tablet" {{ 'selected' if item.item_type=='Tablet' else '' }}>Tablet</option>
+              <option value="Accessory" {{ 'selected' if item.item_type=='Accessory' else '' }}>Accessory</option>
+            </select>
+          </td>
+
+          <td class="actions">
+            <button type="submit" class="btn update">Update</button>
+            <a href="/search/delete/{{ item.id }}" class="btn delete">Delete</a>
+          </td>
+        </form>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% else %}
+<p style="text-align: center;">No inventory items found.</p>
+{% endif %}
+<!-- Pagination -->
+<div class="pagination">
+  {% if page > 1 %}
+  <a href="?page={{ page - 1 }}">Previous</a>
+  {% endif %}
+  Page {{ page }} of {{ total_pages }}
+  {% if page < total_pages %} <a href="?page={{ page + 1 }}">Next</a>
+    {% endif %}
+</div>
+
+<!-- SweetAlert -->
+{% if toast %}
+<script>
+  Swal.fire({
+    toast: true,
+    position: 'bottom-end',
+    icon: '{{ toast.icon }}',
+    title: '{{ toast.message }}',
+    showConfirmButton: false,
+    timer: 3000
+  });
+</script>
+{% endif %}
+{% endblock %}
