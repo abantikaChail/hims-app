@@ -21,11 +21,11 @@ docker-compose up --build
 
 OR
 
-git clone https://github.com/your-username/hims-app.git
+git clone https://github.com/abantikaChail/hims-app.git
 cd hims-app
 
 python -m venv venv
-source venv/bin/activate  # Windows: venv\Scripts\activate
+source venv/bin/activate
 
 pip install -r requirements.txt
 
